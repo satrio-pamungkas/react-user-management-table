@@ -3,6 +3,21 @@ import { useEffect, useMemo, useState } from "react";
 import MockData from "../mocks/Data";
 import FetchService from "../services/DataService";
 import { Searchbox } from "../components/SimpleTable/Searchbox";
+import { ErrorData } from "../components/SimpleTable/ErrorData";
+
+interface ShowTableProps {
+    status: boolean
+    columns: any
+    data: any
+}
+
+const ShowTable = ({ status, columns, data }:ShowTableProps ) => {
+    if (status) {
+        return <Table columns={columns} data={data}/>
+    } else {
+        return <ErrorData/>
+    }
+}
 
 export const SimpleTable = () => {
     const [masterData, setMasterData] = useState([]);
@@ -36,7 +51,7 @@ export const SimpleTable = () => {
                 setAvailable(true);
             })
             .catch((err) => {
-                console.log(err);
+                setAvailable(false);
             });
     };
 
@@ -45,7 +60,7 @@ export const SimpleTable = () => {
     return (
         <div className="container mx-auto px-4 py-8">
             <Searchbox onClick={getSearchText}/>
-            {available && <Table columns={columnMock} data={masterData}/>}
+            <ShowTable status={available} columns={columnMock} data={masterData}/>
         </div>
     );
 }
