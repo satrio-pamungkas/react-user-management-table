@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-type ChildProps = {
+interface ChildProps {
     onClick: (searchText: string) => void
 }
 

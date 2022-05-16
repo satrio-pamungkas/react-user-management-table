@@ -1,9 +1,11 @@
 import { Table } from "../components/SimpleTable/Table";
 import { useEffect, useMemo, useState } from "react";
-import MockData from "../mocks/Data";
-import FetchService from "../services/DataService";
 import { Searchbox } from "../components/SimpleTable/Searchbox";
 import { ErrorData } from "../components/SimpleTable/ErrorData";
+import { DropdownSize } from "../components/SimpleTable/DropdownSize";
+import { FilterContainer } from "../components/SimpleTable/FilterContainer";
+import MockData from "../mocks/Data";
+import FetchService from "../services/DataService";
 
 interface ShowTableProps {
     status: boolean
@@ -11,7 +13,7 @@ interface ShowTableProps {
     data: any
 }
 
-const ShowTable = ({ status, columns, data }:ShowTableProps ) => {
+const ShowTable = ({ status, columns, data }: ShowTableProps ) => {
     if (status) {
         return <Table columns={columns} data={data}/>
     } else {
@@ -23,10 +25,15 @@ export const SimpleTable = () => {
     const [masterData, setMasterData] = useState([]);
     const [available, setAvailable] = useState(false);
     const [searchText, setSearchText] = useState('');
+    const [rows, setRows] = useState(5)
     const columnMock = useMemo(() => MockData.columnMock, []) as any;
 
     const getSearchText = (text: string) => {
         setSearchText(text);
+    }
+
+    const getRowsData = (item: number) => {
+        setRows(item);
     }
 
     const getQueryParams = (search?: string, sort_by?: string, order_by?: string, page?: number, size?: number) => {
@@ -43,7 +50,7 @@ export const SimpleTable = () => {
     }
 
     const getUsersData = () => {
-        const params = getQueryParams(searchText);
+        const params = getQueryParams(searchText, undefined, undefined, undefined, rows);
 
         FetchService.getData(params)
             .then((response) => {
@@ -55,11 +62,14 @@ export const SimpleTable = () => {
             });
     };
 
-    useEffect(getUsersData, [searchText]);
+    useEffect(getUsersData, [searchText, rows]);
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <Searchbox onClick={getSearchText}/>
+            <FilterContainer>
+                <Searchbox onClick={getSearchText}/>
+                <DropdownSize onClick={getRowsData}/>
+            </FilterContainer>
             <ShowTable status={available} columns={columnMock} data={masterData}/>
         </div>
     );
