@@ -6,6 +6,8 @@ import { DropdownSize } from "../components/SimpleTable/DropdownSize";
 import { FilterContainer } from "../components/SimpleTable/FilterContainer";
 import MockData from "../mocks/Data";
 import FetchService from "../services/DataService";
+import { DownloadButtonPuppeteer } from "../components/SimpleTable/DownloadButtonPuppeteer";
+import { DownloadPDFPuppeteer } from "../services/InvoiceService";
 
 interface ShowTableProps {
     status: boolean
@@ -62,6 +64,22 @@ export const SimpleTable = () => {
             });
     };
 
+    const getPdfPuppeteer = () => {
+        DownloadPDFPuppeteer()
+            .then((response) => {
+                const blob = new Blob([response.data], {
+                    type: 'application/pdf'
+                })
+                const link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = 'sample.pdf';
+                link.click();
+            })
+            .catch((error: any) => {
+                console.log(error.messsage);
+            })
+    }
+
     useEffect(getUsersData, [searchText, rows]);
 
     return (
@@ -69,6 +87,7 @@ export const SimpleTable = () => {
             <FilterContainer>
                 <Searchbox onClick={getSearchText}/>
                 <DropdownSize onClick={getRowsData}/>
+                <DownloadButtonPuppeteer onClick={getPdfPuppeteer}/>
             </FilterContainer>
             <ShowTable status={available} columns={columnMock} data={masterData}/>
         </div>

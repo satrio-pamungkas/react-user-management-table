@@ -1,9 +1,8 @@
 import axios from "axios";
-
-const BASE_URL: string = 'http://localhost:8000/api/v1/users';
+import { BASE_URL } from "../helpers/utils";
 
 const getData = async (params?: any) => {
-    return await axios.get(BASE_URL, ({ params }));
+    return await axios.get(`${BASE_URL}/users`, ({ params }));
 }
 
 const FetchService = { getData };

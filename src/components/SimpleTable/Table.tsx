@@ -1,6 +1,6 @@
 import FetchService from "../../services/DataService";
 import { useTable } from "react-table";
-import { TableProps } from "../types/simpletable.type";
+import { TableProps } from "../../types/simpletable.type";
 
 export const Table = ({ columns, data }: TableProps) => {
 
@@ -11,7 +11,7 @@ export const Table = ({ columns, data }: TableProps) => {
         });
 
     return (
-        <table {...getTableProps()} className="min-w-full divide-y divide-gray-200">
+        <table {...getTableProps()} className="min-w-full divide-y divide-gray-200" id="table-schema">
             <thead className="bg-gray-100">
                 {headerGroups.map((headerGroup) => (
                     <tr {...headerGroup.getHeaderGroupProps()}>

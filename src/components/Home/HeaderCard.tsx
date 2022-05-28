@@ -1,4 +1,4 @@
-import { HeaderCardProps } from "../types/home.type";
+import { HeaderCardProps } from "../../types/home.type";
 
 export const HeaderCard = ({ children }: HeaderCardProps) => {
     return (

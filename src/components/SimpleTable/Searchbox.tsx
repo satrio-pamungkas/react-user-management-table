@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SearchProps } from "../types/simpletable.type";
+import { SearchProps } from "../../types/simpletable.type";
 
 export const Searchbox = (props: SearchProps) => {
     const [searchText, setSearchText] = useState('');

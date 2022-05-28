@@ -12,6 +12,10 @@ export interface SearchProps {
     onClick: (searchText: string) => void
 }
 
+export interface DownloadProps {
+    onClick: () => void
+}
+
 export interface TableProps {
     columns: any
     data: any
