@@ -1,8 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-
-interface DropdownProps {
-    onClick: (rows: number) => void
-}
+import { DropdownProps } from "../types/simpletable.type";
 
 const pageSize: number[] = [5,10,15,20];
 

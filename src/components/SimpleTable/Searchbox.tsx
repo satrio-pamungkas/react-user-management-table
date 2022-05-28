@@ -1,10 +1,7 @@
 import { useState } from "react";
+import { SearchProps } from "../types/simpletable.type";
 
-interface ChildProps {
-    onClick: (searchText: string) => void
-}
-
-export const Searchbox = (props: ChildProps) => {
+export const Searchbox = (props: SearchProps) => {
     const [searchText, setSearchText] = useState('');
 
     const handleInput = () => {

@@ -1,8 +1,5 @@
 import { ReactNode } from "react";
-
-interface ChildrenProps {
-    children: ReactNode
-}
+import { ChildrenProps } from "../types/simpletable.type";
 
 export const FilterContainer = ({ children }: ChildrenProps) => {
     return (

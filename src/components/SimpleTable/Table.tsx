@@ -1,10 +1,6 @@
 import FetchService from "../../services/DataService";
 import { useTable } from "react-table";
-
-type TableProps = {
-    columns: any,
-    data: any
-};
+import { TableProps } from "../types/simpletable.type";
 
 export const Table = ({ columns, data }: TableProps) => {
 
